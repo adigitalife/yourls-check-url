@@ -58,10 +58,13 @@ function churl_reachability( $churl_reachable, $url, $keyword = '' ) {
 	}
 }
 
-function churl_url_exists( $churl ){
-	$handle = @fopen($churl, "r");
-	if ($handle === false)
-	return false;
-	fclose($handle);
-	return true;
-} 
+function churl_url_exists( $churl ) {
+  $headers = get_headers($churl, 1);
+
+  // Declare the valid responses
+  if ( strpos($headers[0],"200 OK") != false) {
+    return true;
+  }
+
+  return false;
+}
