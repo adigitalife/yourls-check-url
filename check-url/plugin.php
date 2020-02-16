@@ -59,11 +59,13 @@ function churl_reachability( $churl_reachable, $url, $keyword = '' ) {
 }
 
 function churl_url_exists( $churl ) {
-  $headers = get_headers($churl, 1);
+  $headers = get_headers($churl);
 
   // Declare the valid responses
-  if ( strpos($headers[0],"200 OK") != false) {
-    return true;
+  foreach($headers as $h){
+    if ( strpos($h,"200 OK") != false) {
+      return true;
+    }
   }
 
   return false;
